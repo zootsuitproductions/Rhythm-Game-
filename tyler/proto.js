@@ -1,6 +1,11 @@
 var lines;
 var apple;
 var angle;
+var img;
+
+function preload(){
+  img = loadImage('apple.png');
+}
 
 function setup() {
   createCanvas(400, 400);
@@ -18,13 +23,18 @@ function draw() {
   angleMode(DEGREES)
   background(100);
 
+  stroke('blue')
+  line(20,0,20,height)
+
   for(var i = 0; i < lines.length; i++){
 
+    stroke('black')
     lines[i]--
     angle+=0.5
 
     apple.y = map(sin(angle),-1,1,(height/2) + 20,(height/2)-20)
-    ellipse(lines[0],apple.y,25,25)
+    imageMode(CENTER)
+    image(img,lines[0],apple.y,25,25)
 
     if(lines[i] < 0){
       lines[i] = width
