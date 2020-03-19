@@ -1,19 +1,20 @@
-let gameSpeed = 5;
+let fr = 60;
 
 let currentKey = -1
-let keySequence = [];
-
-let tempo = 80 //in bpm
-
-let beatLength =  60000/tempo
+let keySequence = [0,0,0,0,0,0,0,0];
 
 let desiredSequence = [3/8, 3/8, 1/2, 1/4]
 
-function doGameTick() {
+function setup() {
+
+}
+
+function draw() {
 	if ((currentKey > -1) && (currentKey < 5)) {
-		keySequence[currentKey] += gameSpeed;
+		keySequence[currentKey] += 5;
 	}
 }
+
 
 function keyPressed() {
 	if (currentKey < 4) {
@@ -29,7 +30,6 @@ function keyPressed() {
 function checkCorrectness() {
 	let correct = true;
 	for (i = 0; i < desiredSequence.length; i ++) {
-		//let actualNoteLength = 2 * beatLength * desiredSequence[i];	 // 4 heere? not susuuuure about note lengths
 		let actualNoteLength = keySequence[0]*(1/desiredSequence[0]) * desiredSequence[i]; //WORKS WITH ANY TEMPO
 		console.log(actualNoteLength);
 		if (Math.abs(keySequence[i]/actualNoteLength - 1) > 0.15) {
@@ -41,8 +41,3 @@ function checkCorrectness() {
 	}
 	return correct;
 }
-
-
-//start game
-setInterval(doGameTick, gameSpeed);	
-document.onkeydown = keyPressed
