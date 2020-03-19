@@ -1,3 +1,6 @@
+setInterval(doGameTick, gameSpeed);	
+document.onkeydown = keyPressed
+
 let gameSpeed = 5;
 
 let currentKey = -1
@@ -40,9 +43,4 @@ function checkCorrectness() {
 		}
 	}
 	return correct;
-}
-
-function buttonPressed() {
-	setInterval(doGameTick, gameSpeed);	
-	document.onkeydown = keyPressed
 }
