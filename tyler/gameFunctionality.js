@@ -1,6 +1,3 @@
-setInterval(doGameTick, gameSpeed);	
-document.onkeydown = keyPressed
-
 let gameSpeed = 5;
 
 let currentKey = -1
@@ -11,6 +8,10 @@ let tempo = 80 //in bpm
 let beatLength =  60000/tempo
 
 let desiredSequence = [3/8, 3/8, 1/2, 1/4]
+
+//start game
+setInterval(doGameTick, gameSpeed);	
+document.onkeydown = keyPressed
 
 function doGameTick() {
 	if ((currentKey > -1) && (currentKey < 5)) {
