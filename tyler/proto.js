@@ -4,7 +4,8 @@ var angle;
 var img;
 
 function preload(){
-  img = loadImage('apple.png');
+  img = loadImage('/tyler/pictures/apples/apple1.png');
+  fr = createImg('/tyler/pictures/flames/flame1.gif');
 }
 
 function setup() {
@@ -14,34 +15,43 @@ function setup() {
   lines = [width/5, 2*width/5, 3*width/5, 4*width/5, width];
 
   apple = {
-    x: lines[0],
-    y: height/2
+    x: 0,
+    y: 0,
+    width: 25,
+    height: 25
   }
 }
 
 function draw() {
+
   angleMode(DEGREES)
+  angle+=2.5
+
+  cnv=document.getElementById('defaultCanvas0');
+  console.log(window.innerWidth)
+
   background(100);
+  fr.position(((window.innerWidth - cnv.width) / 2) + apple.x, apple.y)
+  fr.elt.width = apple.width
 
   stroke('blue')
   line(20,0,20,height)
 
   for(var i = 0; i < lines.length; i++){
-
-    stroke('black')
     lines[i]--
-    angle+=0.5
-
-    apple.y = map(sin(angle),-1,1,(height/2) + 20,(height/2)-20)
-    imageMode(CENTER)
-    image(img,lines[0],apple.y,25,25)
-
     if(lines[i] < 0){
       lines[i] = width
     }
 
     for(var j = 0; j < height / 20; j++){
+      stroke('black')
       line(lines[i],j*20, lines[i], (j*20)+5)
     }
   }
+
+  apple.y = map(sin(angle),-1,1,(height/2) + 20,(height/2)-20)
+  apple.x = lines[0]
+  imageMode(CENTER)
+  image(img,apple.x,apple.y,apple.width,apple.height)
+
 }
