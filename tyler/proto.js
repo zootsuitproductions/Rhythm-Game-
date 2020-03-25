@@ -5,7 +5,7 @@ var img;
 
 function preload(){
   img = loadImage('/tyler/pictures/apples/apple1.png');
-  fr = createImg('/tyler/pictures/flames/flame1.gif');
+  // fr = createImg('/tyler/pictures/flames/flame1.gif');
 }
 
 function setup() {
@@ -27,12 +27,12 @@ function draw() {
   angleMode(DEGREES)
   angle+=2.5
 
-  cnv=document.getElementById('defaultCanvas0');
-  console.log(window.innerWidth)
+  // cnv=document.getElementById('defaultCanvas0');
+  // console.log(window.innerWidth)
 
   background(100);
-  fr.position(((window.innerWidth - cnv.width) / 2) + apple.x, apple.y)
-  fr.elt.width = apple.width
+  // fr.position(((window.innerWidth - cnv.width) / 2) + apple.x, apple.y)
+  // fr.elt.width = apple.width
 
   stroke('blue')
   line(20,0,20,height)
