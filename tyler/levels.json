@@ -1,0 +1,14 @@
+[
+  {
+    "level": 1,
+    "sequence": ["plum","apple","watermelon","plum"]
+  },
+  {
+    "level": 2,
+    "sequence": ["strawberry","apple","plum","plum"]
+  },
+  {
+    "level": 3,
+    "sequence": ["watermelon","prickle-pear","apple","black-cherry"]
+  }
+]
