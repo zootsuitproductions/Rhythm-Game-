@@ -2,11 +2,19 @@ let fr = 60;
 let apple;
 let ang;
 let img;
+let bc = 100;
 
 let currentKey = -1
 let keySequence = [0,0,0,0,0,0,0,0];
 
 let desiredSequence = [3/8, 3/8, 1/2, 1/4]
+
+document.addEventListener('keydown', function(){
+	bc = 50;
+})
+document.addEventListener('keyup', function(){
+	bc = 100;
+})
 
 function preload(){
   img = loadImage('/tyler/pictures/apples/apple1.png');
@@ -25,7 +33,11 @@ function setup() {
 }
 
 function draw() {
-	background(100)
+	background(bc)
+	noStroke()
+	fill(100)
+	textSize(50)
+	text('key is down', 0, 40)
 	angle += 2.5;
 	apple.y = map(sin(angle),-1,1,(height/2) + 20,(height/2)-20)
 	imageMode(CENTER)
