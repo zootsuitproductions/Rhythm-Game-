@@ -3,6 +3,7 @@ let apple;
 let ang;
 let img;
 let bc = 100;
+let completed = false;
 
 let currentKey = -1
 let keySequence = [0,0,0,0,0,0,0,0];
@@ -41,7 +42,9 @@ function draw() {
 	angle += 2.5;
 	apple.y = map(sin(angle),-1,1,(height/2) + 20,(height/2)-20)
 	imageMode(CENTER)
-	image(img,apple.x,apple.y,apple.width,apple.height)
+	if(!completed){
+		image(img,apple.x,apple.y,apple.width,apple.height)
+	}
 
 	if ((currentKey > -1) && (currentKey < 5)) {
 		keySequence[currentKey] += 5;
