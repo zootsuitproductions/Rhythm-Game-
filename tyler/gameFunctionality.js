@@ -10,6 +10,8 @@ let keySequence = [0,0,0,0,0,0,0,0];
 
 let desiredSequence = [3/8, 3/8, 1/2, 1/4]
 
+let score = [];
+
 document.addEventListener('keydown', function(){
 	bc = 50;
 })
@@ -49,6 +51,14 @@ function draw() {
 	if ((currentKey > -1) && (currentKey < 5)) {
 		keySequence[currentKey] += 5;
 	}
+
+	let sumOfScores = 0;
+	for (var i = 0; i < score.length; i++) {
+		sumOfScores += score[i]
+	}
+	if(sumOfScores >= 1){
+		completed = true;
+	}
 }
 
 
@@ -60,6 +70,7 @@ function keyPressed() {
 	} else if (currentKey === 4) {
 		currentKey ++;
 		console.log(checkCorrectness());
+		console.log(score)
 	}
 }
 
@@ -71,8 +82,10 @@ function checkCorrectness() {
 		if (Math.abs(keySequence[i]/actualNoteLength - 1) > 0.15) {
 			correct = false;
 			console.log("bad");
+			score.push(0);
 		} else {
 			console.log("good");
+			score.push(1);
 		}
 	}
 	return correct;
