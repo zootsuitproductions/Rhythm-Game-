@@ -52,13 +52,13 @@ function draw() {
 		keySequence[currentKey] += 5;
 	}
 
-	let sumOfScores = 0;
-	for (var i = 0; i < score.length; i++) {
-		sumOfScores += score[i]
-	}
-	if(sumOfScores >= 1){
-		completed = true;
-	}
+	// let sumOfScores = 0;
+	// for (var i = 0; i < score.length; i++) {
+	// 	sumOfScores += score[i]
+	// }
+	// if(sumOfScores >= 1){
+	// 	totalScore = 5stars;
+	// }
 }
 
 
@@ -71,6 +71,7 @@ function keyPressed() {
 		currentKey ++;
 		console.log(checkCorrectness());
 		console.log(score)
+		completed = true;
 	}
 }
 
