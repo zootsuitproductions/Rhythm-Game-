@@ -13,10 +13,13 @@ function setup() {
 }
 
 function draw() {
-	let currentKey = game1.getCurrentKey();
-	if ((currentKey > -1) && (currentKey < 5)) {
-		game1.setRecordedSequence((game1.getRecordedSequence()[currentKey] + 5), currentKey);
-		//keySequence[currentKey] += 5;
+	if (currentGame < arr.length) {
+		let rhythmSeq = arr[currentGame]
+		let currentKey = rhythmSeq.getCurrentKey();
+		if ((currentKey > -1) && (currentKey < 5)) {
+			rhythmSeq.setRecordedSequence((rhythmSeq.getRecordedSequence()[currentKey] + 5), currentKey);
+			//keySequence[currentKey] += 5;
+		}
 	}
 }
 
@@ -43,50 +46,43 @@ class RhythmSequence {
 		this.recordedSequence[index] = val;
 	}
 
-	// keyPressed() {
-	// 	if (this.currentKey < 4) {
-	// 	this.recordedSequence.push(0); 
-	// 	this.currentKey ++; 
-	// 	} else if (this.currentKey === 4) {	
-	// 		this.currentKey ++;
-	// 		console.log(this.checkCorrectness());
-	// 	}
-	// }
+	getSequence() {
+		return this.sequence;
+	}
 
-	// checkCorrectness() {
-	// 	let correct = true;
-	// 	for (i = 0; i < this.sequence.length; i ++) {
-	// 		let actualNoteLength = this.recordedSequence[0]*(1/this.sequence[0]) * this.sequence[i]; //WORKS WITH ANY TEMPO
-	// 		if (Math.abs(this.recordedSequence[i]/actualNoteLength - 1) > 0.15) {
-	// 			correct = false;
-	// 		} 
-	// 	}
-	// 	return correct;
-	// }
+	keyPressed() {
+		if (this.currentKey < 4) {
+		this.recordedSequence.push(0); 
+		this.currentKey ++; 
+		} else if (this.currentKey === 4) {	
+			console.log(this.recordedSequence)
+			this.currentKey ++;
+			console.log(this.checkCorrectness());
+		}
+	}
+
+	checkCorrectness() {
+		let correct = true;
+		for (let i = 0; i < this.sequence.length; i ++) {
+			let actualNoteLength = this.recordedSequence[0]*(1/this.sequence[0]) * this.sequence[i]; //WORKS WITH ANY TEMPO
+			if (Math.abs(this.recordedSequence[i]/actualNoteLength - 1) > 0.15) {
+				correct = false;
+			} 
+		}
+		currentGame ++;
+		return correct;
+	}
 
 }
 
 let game1 = new RhythmSequence(desiredSequence);
+let game2 = new RhythmSequence([1, 1, 1, 1]);
+
+let arr = [game1, game2];
+let currentGame = 0;
 
 function keyPressed() {
-	let currentKey = game1.getCurrentKey();
-	if (currentKey < 4) {
-		//keySequence.push(0); 
-		game1.incrementCurrentKey();
-	} else if (currentKey === 4) {	
-		game1.incrementCurrentKey();
-		console.log(checkCorrectness());
+	if (currentGame < arr.length) {
+		arr[currentGame].keyPressed();	
 	}
-}
-
-function checkCorrectness() {
-	let correct = true;
-	for (i = 0; i < desiredSequence.length; i ++) {
-		let actualNoteLength = keySequence[0]*(1/desiredSequence[0]) * desiredSequence[i]; //WORKS WITH ANY TEMPO
-		if (Math.abs(keySequence[i]/actualNoteLength - 1) > 0.15) {
-			correct = false;
-		} else {
-		}
-	}
-	return correct;
 }
