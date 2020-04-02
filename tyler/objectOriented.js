@@ -1,12 +1,5 @@
 let fr = 60;
 
-//let currentKey = -1
-let keySequence = [0,0,0,0,0,0,0,0];
-
-let desiredSequence = [3/8, 3/8, 1/2, 1/4]
-
-
-
 function setup() {
 	createCanvas(windowWidth,windowHeight);
 	background(200);
@@ -16,9 +9,8 @@ function draw() {
 	if (currentGame < arr.length) {
 		let rhythmSeq = arr[currentGame]
 		let currentKey = rhythmSeq.getCurrentKey();
-		if ((currentKey > -1) && (currentKey < 5)) {
+		if ((currentKey > -1) && (currentKey < rhythmSeq.getSequence().length)) {
 			rhythmSeq.setRecordedSequence((rhythmSeq.getRecordedSequence()[currentKey] + 5), currentKey);
-			//keySequence[currentKey] += 5;
 		}
 	}
 }
@@ -33,28 +25,24 @@ class RhythmSequence {
 	getCurrentKey() {
 		return this.currentKey;
 	}
-
 	incrementCurrentKey() {
 		this.currentKey ++;
 	}
-
 	getRecordedSequence() {
 		return this.recordedSequence;
 	}
-
 	setRecordedSequence(val, index) {
 		this.recordedSequence[index] = val;
 	}
-
 	getSequence() {
 		return this.sequence;
 	}
 
 	keyPressed() {
-		if (this.currentKey < 4) {
-		this.recordedSequence.push(0); 
+		if (this.currentKey < this.sequence.length-1) {
+		//this.recordedSequence.push(0); 
 		this.currentKey ++; 
-		} else if (this.currentKey === 4) {	
+		} else if (this.currentKey === this.sequence.length-1) {	
 			console.log(this.recordedSequence)
 			this.currentKey ++;
 			console.log(this.checkCorrectness());
@@ -75,10 +63,7 @@ class RhythmSequence {
 
 }
 
-let game1 = new RhythmSequence(desiredSequence);
-let game2 = new RhythmSequence([1, 1, 1, 1]);
-
-let arr = [game1, game2];
+let arr = [new RhythmSequence([3/8, 3/8, 1/2, 1/4]), new RhythmSequence([1, 1])];
 let currentGame = 0;
 
 function keyPressed() {
