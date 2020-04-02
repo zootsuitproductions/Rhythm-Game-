@@ -3,10 +3,13 @@ let fr = 60;
 function setup() {
 	createCanvas(windowWidth,windowHeight);
 	background(200);
+	textSize(30);
 }
 
 function draw() {
 	if (currentGame < arr.length) {
+		background(200);
+		text(arr[currentGame].getSequence(),20,50);
 		let rhythmSeq = arr[currentGame]
 		let currentKey = rhythmSeq.getCurrentKey();
 		if ((currentKey > -1) && (currentKey < rhythmSeq.getSequence().length)) {
@@ -45,7 +48,10 @@ class RhythmSequence {
 		} else if (this.currentKey === this.sequence.length-1) {	
 			console.log(this.recordedSequence)
 			this.currentKey ++;
-			console.log(this.checkCorrectness());
+			let correct = this.checkCorrectness()
+			text(correct,windowWidth/2,windowHeight/2);
+			console.log(correct);
+
 		}
 	}
 
