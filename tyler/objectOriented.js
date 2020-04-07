@@ -1,4 +1,12 @@
+let mySound = [];
+function preload() {
+	for (i = 1; i <= 7; i++) {
+  		mySound.push(loadSound("sounds/Cymatics - WRLD Percussion " + String(i) + ".wav"));
+	}
+}
+
 let fr = 60;
+let ready = false;
 
 function setup() {
 	createCanvas(windowWidth,windowHeight);
@@ -7,7 +15,7 @@ function setup() {
 }
 
 function draw() {
-	if (currentGame < arr.length) {
+	if ((currentGame < arr.length) && (ready == true)) {
 		background(200);
 		text(arr[currentGame].getSequence(),20,50);
 		let rhythmSeq = arr[currentGame]
@@ -21,7 +29,7 @@ function draw() {
 class RhythmSequence {
 	constructor(sequence) {
 		this.sequence = sequence;
-		this.currentKey = -1;
+		this.currentKey = -2;
 		this.recordedSequence = Array(sequence.length).fill(0);
 	}
 
@@ -64,6 +72,7 @@ class RhythmSequence {
 			} 
 		}
 		currentGame ++;
+		ready = false;
 		return correct;
 	}
 
@@ -73,7 +82,9 @@ let arr = [new RhythmSequence([3/8, 3/8, 1/2, 1/4]), new RhythmSequence([1, 1])]
 let currentGame = 0;
 
 function keyPressed() {
+	ready = true;
 	if (currentGame < arr.length) {
+		mySound[5].play();
 		arr[currentGame].keyPressed();	
 	}
 }
