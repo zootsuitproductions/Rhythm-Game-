@@ -1,13 +1,16 @@
 let fr = 60;
 let apple;
-let img;
+let watermelon;
+let plum;
 let bc = 100;
 let completed = false;
+let gameFruits = [];
 
 let currentKey = -1
 let keySequence = [0,0,0,0,0,0,0,0];
 
-let desiredSequence = [3/8, 3/8, 1/2, 1/4]
+let desiredSequence2 = [3/8, 3/8, 1/2, 1/4]
+let desiredSequence = ['apple', 'apple', 'watermelon', 'plum'];
 
 let score = [];
 
@@ -19,13 +22,17 @@ document.addEventListener('keyup', function(){
 })
 
 function preload(){
-  img = loadImage('/tyler/pictures/apples/apple1.png');
+  apple = loadImage('/tyler/pictures/fruit/apple.png');
+	watermelon = loadImage('/tyler/pictures/fruit/watermelon.png');
+	plum = loadImage('/tyler/pictures/fruit/plum.png');
 }
 
 function setup() {
 	createCanvas(700,400)
-	apple = new Fruit(width/2,25,25,0);
-	apple2 = new Fruit(50,25,25,90);
+	for (var i = 0; i < desiredSequence.length; i++) {
+		gameFruits.push(new Fruit((i * (width - 300) / (desiredSequence.length - 1)) + 150 , 25, 25, 20 * i, desiredSequence[i]))
+	}
+
 	angleMode(DEGREES)
 }
 
@@ -37,12 +44,14 @@ function draw() {
 	text('key is down', 0, 40)
 
 	if(!completed){
-		apple.show()
-		apple2.show()
+		for (var i = 0; i < gameFruits.length; i++) {
+			gameFruits[i].show()
+		}
 	}
 	if(completed){
-		apple.boom()
-		apple2.boom()
+		for (var i = 0; i < gameFruits.length; i++) {
+			gameFruits[i].boom()
+		}
 	}
 
 	if ((currentKey > -1) && (currentKey < 5)) {
@@ -90,12 +99,14 @@ function checkCorrectness() {
 }
 
 class Fruit {
-	constructor(x,width,height,angle){
+	constructor(x,width,height,angle,type){
 		this.x = x;
 		this.y;
 		this.width = width;
 		this.height = height;
 		this.angle = angle;
+		this.type = type;
+
 		this.array = [];
 		for (var i = 0; i < 30; i++) {
 			this.array.push(Math.floor(Math.random()*359))
@@ -105,7 +116,8 @@ class Fruit {
 		this.angle += 2.5;
 		this.y = map(sin(this.angle),-1,1,(height/2) + 20,(height/2)-20)
 		imageMode(CENTER)
-		image(img,this.x,this.y,this.width,this.height)
+		console.log(this.type)
+		image(this.type,this.x,this.y,this.width,this.height)
 	}
 	boom(){
 		// let applePoof = new Bang(this.x,this.y)
