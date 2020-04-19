@@ -29,6 +29,7 @@ function preload(){
 
 function setup() {
 	createCanvas(700,400)
+
 	for (var i = 0; i < desiredSequence.length; i++) {
 		gameFruits.push(new Fruit((i * (width - 300) / (desiredSequence.length - 1)) + 150 , 25, 25, 20 * i, desiredSequence[i]))
 	}
@@ -38,10 +39,13 @@ function setup() {
 
 function draw() {
 	background(bc)
+	let testfruit = new Fruit(10,50,50,0,watermelon)
+	testfruit.show();
 	noStroke()
 	fill(100)
 	textSize(50)
 	text('key is down', 0, 40)
+
 
 	if(!completed){
 		for (var i = 0; i < gameFruits.length; i++) {
