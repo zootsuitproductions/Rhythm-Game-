@@ -10,7 +10,7 @@ let currentKey = -1
 let keySequence = [0,0,0,0,0,0,0,0];
 
 let desiredSequence2 = [3/8, 3/8, 1/2, 1/4]
-let desiredSequence = ['apple', 'apple', 'watermelon', 'plum'];
+
 
 let score = [];
 
@@ -29,18 +29,21 @@ function preload(){
 
 function setup() {
 	createCanvas(700,400)
+	
+  let desiredSequence = [apple, apple, watermelon, plum];
 
 	for (var i = 0; i < desiredSequence.length; i++) {
 		gameFruits.push(new Fruit((i * (width - 300) / (desiredSequence.length - 1)) + 150 , 25, 25, 20 * i, desiredSequence[i]))
 	}
 
+
 	angleMode(DEGREES)
+	print(gameFruits);
 }
 
 function draw() {
 	background(bc)
-	let testfruit = new Fruit(10,50,50,0,watermelon)
-	testfruit.show();
+
 	noStroke()
 	fill(100)
 	textSize(50)
@@ -105,7 +108,7 @@ function checkCorrectness() {
 class Fruit {
 	constructor(x,width,height,angle,type){
 		this.x = x;
-		this.y;
+		// this.y;
 		this.width = width;
 		this.height = height;
 		this.angle = angle;
