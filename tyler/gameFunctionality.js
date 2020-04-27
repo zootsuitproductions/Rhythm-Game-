@@ -18,9 +18,9 @@ document.addEventListener('keyup', function(){
 })
 
 function preload(){
-  apple = loadImage('/pictures/fruit/apple.png');
-	watermelon = loadImage('/pictures/fruit/watermelon.png');
-	plum = loadImage('/pictures/fruit/plum.png');
+  apple = loadImage('/Rhythm-Game-/tyler/pictures/fruit/apple.png');
+	watermelon = loadImage('/Rhythm-Game-/tyler/pictures/fruit/watermelon.png');
+	plum = loadImage('/Rhythm-Game-/tyler/pictures/fruit/plum.png');
 }
 
 function setup() {
