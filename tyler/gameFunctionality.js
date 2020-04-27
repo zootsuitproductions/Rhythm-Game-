@@ -9,6 +9,7 @@ let completed = false;
 let gameFruits = [];
 let currentKey = 0;
 let sequence = [];
+let explosions = [];
 
 document.addEventListener('keydown', function(){
 	bc = 50;
@@ -29,8 +30,10 @@ function setup() {
 	for (var i = 0; i < sequence.length; i++) {
 		gameFruits.push(new Fruit((i * (width - 300) / (sequence.length - 1)) + 150 , 25, 25, 20 * i, sequence[i]))
 	}
+	for (var i = 0; i < gameFruits.length; i++) {
+		explosions.push(new Explosion(200,200,gameFruits[i].array));
+	}
 	angleMode(DEGREES)
-	print(gameFruits);
 }
 
 function draw() {
@@ -39,6 +42,10 @@ function draw() {
 	fill(100)
 	textSize(50)
 	text('key is down', 0, 40)
+	// for (var i = 0; i < explosions.length; i++) {
+	// 	explosions[i].move()
+	// 	console.log(explosions[i].x)
+	// }
 
 	if(!completed){
 		for (var i = 0; i < gameFruits.length; i++) {
@@ -46,12 +53,13 @@ function draw() {
 		}
 	}
 	if(completed){
-		let explosions = []
 		for (var i = 0; i < gameFruits.length; i++) {
-			explosions.push(new Explosion(gameFruits[i].x,gameFruits[i].y,gameFruits[i].array));
+			explosions[i].x = gameFruits[i].x;
+			explosions[i].y = gameFruits[i].y;
 		}
 		for (var i = 0; i < explosions.length; i++) {
 			explosions[i].move()
+			console.log(explosions[i].x)
 		}
 	}
 }
@@ -75,24 +83,12 @@ class Fruit {
 		for (var i = 0; i < 30; i++) {
 			this.array.push(Math.floor(Math.random()*359))
 		}
-		console.log(this.array)
 	}
 	show(){
 		this.angle += 2.5;
 		this.y = map(sin(this.angle),-1,1,(height/2) + 30,(height/2) - 30)
 		imageMode(CENTER)
 		image(this.type,this.x,this.y,this.width,this.height)
-	}
-}
-
-function explode(x,y,array){
-	for (var i = 0; i < array.length; i++) {
-		let explodeX = x;
-		let explodeY = y;
-		fill('red')
-		ellipse(explodeX,explodeY,5,5)
-		explodeX+=cos(array[i]);
-		explodeY+=sin(array[i]);
 	}
 }
 
@@ -113,8 +109,8 @@ class Explosion {
 			// this.explodeY = this.y;
 			fill('red')
 			ellipse(this.explodeX,this.explodeY,2,2)
-			this.explodeX+=cos(this.array[i]) * 6;
-			this.explodeY+=sin(this.array[i]) * 6;
+			this.explodeX+=cos(this.array[i]);
+			this.explodeY+=sin(this.array[i]);
 		}
 	}
 }
