@@ -1,5 +1,4 @@
-//THE reason why can't move explosions is because at 105-106, I redefine explodeX immediately
-
+//55 doesnt change 33 because the explosion is already made
 let fr = 60;
 let bc = 100;
 let apple;
