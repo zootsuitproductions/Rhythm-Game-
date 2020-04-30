@@ -29,9 +29,6 @@ function setup() {
 	for (var i = 0; i < sequence.length; i++) {
 		gameFruits.push(new Fruit((i * (width - 300) / (sequence.length - 1)) + 150 , 25, 25, 20 * i, sequence[i]))
 	}
-	for (var i = 0; i < gameFruits.length; i++) {
-		explosions.push(new Explosion(200,200,gameFruits[i].array));
-	}
 	angleMode(DEGREES)
 }
 
@@ -52,13 +49,13 @@ function draw() {
 		}
 	}
 	if(completed){
-		for (var i = 0; i < gameFruits.length; i++) {
-			explosions[i].x = gameFruits[i].x;
-			explosions[i].y = gameFruits[i].y;
-		}
+		// for (var i = 0; i < gameFruits.length; i++) {
+		// 	explosions[i].x = gameFruits[i].x;
+		// 	explosions[i].y = gameFruits[i].y;
+		// }
 		for (var i = 0; i < explosions.length; i++) {
 			explosions[i].move()
-			console.log(explosions[i].x)
+			// console.log(explosions[i].x)
 		}
 	}
 }
@@ -67,6 +64,11 @@ function keyPressed() {
 	currentKey++
 	if (currentKey >= 5) {
 		completed = true;
+	}
+	if (currentKey == 5){
+		for (var i = 0; i < gameFruits.length; i++) {
+			explosions.push(new Explosion(gameFruits[i].x,gameFruits[i].y,gameFruits[i].array));
+		}
 	}
 }
 
@@ -111,5 +113,7 @@ class Explosion {
 			this.explodeX+=cos(this.array[i]);
 			this.explodeY+=sin(this.array[i]);
 		}
+
+		ellipse(this.x,this.y,2,2)
 	}
 }
