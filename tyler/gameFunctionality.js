@@ -49,7 +49,6 @@ function draw() {
 	if(completed){
 		for (var i = 0; i < explosions.length; i++) {
 			explosions[i].move()
-			// console.log(explosions[i].x)
 		}
 
 		bc = 50;
