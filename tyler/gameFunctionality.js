@@ -9,7 +9,7 @@ let gameFruits = [];
 let currentKey = 0;
 let sequence = [];
 let explosions = [];
-let score = "terrible"
+let score = "good job"
 
 document.addEventListener('keydown', function(){
 	bc = 50;
