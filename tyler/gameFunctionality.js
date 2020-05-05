@@ -64,7 +64,7 @@ function keyPressed() {
 	if (currentKey == 5){
 		for (var i = 0; i < gameFruits.length; i++) {
 			for (var j = 0; j < 30; j++) {
-				explosions.push(new Explosion(gameFruits[i].x,gameFruits[i].y,Math.floor(Math.random()*359)));
+				explosions.push(new Explosion(gameFruits[i].x,gameFruits[i].y,Math.floor(Math.random()*359),Math.random()*2,gameFruits[i].type));
 			}
 		}
 	}
@@ -87,15 +87,18 @@ class Fruit {
 }
 
 class Explosion {
-	constructor(x,y,direction){
+	constructor(x,y,direction,speed,type){
 		this.x = x;
 		this.y = y;
 		this.direction = direction;
+		this.speed = speed;
+		this.type = type;
 	}
 	move(){
 		fill('red')
-		ellipse(this.x,this.y,2,2)
-		this.x+=cos(this.direction);
-		this.y+=sin(this.direction);
+		imageMode(CENTER)
+		image(this.type,this.x,this.y,10,10)
+		this.x+=cos(this.direction)*this.speed;
+		this.y+=sin(this.direction)*this.speed;
 	}
 }
