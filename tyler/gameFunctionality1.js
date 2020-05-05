@@ -122,17 +122,17 @@ function keyPressed() {
 
 
 
-function draw() {
-	if ((currentGame < arr.length) && (ready == true)) {
-		background(200);
-		text(arr[currentGame].getSequence(),20,50);
-		let rhythmSeq = arr[currentGame]
-		let currentKey = rhythmSeq.getCurrentKey();
-		if ((currentKey > -1) && (currentKey < rhythmSeq.getSequence().length)) {
-			rhythmSeq.setRecordedSequence((rhythmSeq.getRecordedSequence()[currentKey] + 5), currentKey);
-		}
-	}
-}
+// function draw() {
+// 	if ((currentGame < arr.length) && (ready == true)) {
+// 		background(200);
+// 		text(arr[currentGame].getSequence(),20,50);
+// 		let rhythmSeq = arr[currentGame]
+// 		let currentKey = rhythmSeq.getCurrentKey();
+// 		if ((currentKey > -1) && (currentKey < rhythmSeq.getSequence().length)) {
+// 			rhythmSeq.setRecordedSequence((rhythmSeq.getRecordedSequence()[currentKey] + 5), currentKey);
+// 		}
+// 	}
+// }
 
 function draw() {
 	background(bc)
