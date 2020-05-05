@@ -10,6 +10,7 @@ let completed = false;
 let gameFruits = [];
 let currentKey = 0;
 let sequence = [];
+let explosions = [];
 
 let mySound = [];
 
@@ -69,9 +70,9 @@ class RhythmSequence {
 
 	keyPressed() {
 		if (this.currentKey < this.sequence.length-1) {
-		//this.recordedSequence.push(0); 
-		this.currentKey ++; 
-		} else if (this.currentKey === this.sequence.length-1) {	
+		//this.recordedSequence.push(0);
+		this.currentKey ++;
+		} else if (this.currentKey === this.sequence.length-1) {
 			console.log(this.recordedSequence)
 			this.currentKey ++;
 			let correct = this.checkCorrectness()
@@ -87,7 +88,7 @@ class RhythmSequence {
 			let actualNoteLength = this.recordedSequence[0]*(1/this.sequence[0]) * this.sequence[i]; //WORKS WITH ANY TEMPO
 			if (Math.abs(this.recordedSequence[i]/actualNoteLength - 1) > 0.15) {
 				correct = false;
-			} 
+			}
 		}
 		currentGame ++;
 		ready = false;
@@ -103,8 +104,15 @@ function keyPressed() {
 	ready = true;
 	if (currentGame < arr.length) {
 		mySound[5].play();
-		arr[currentGame].keyPressed();	
+		arr[currentGame].keyPressed();
 	}
+  else {
+		for (var i = 0; i < gameFruits.length; i++) {
+			for (var j = 0; j < 30; j++) {
+				explosions.push(new Explosion(gameFruits[i].x,gameFruits[i].y,Math.floor(Math.random()*359),Math.random()*2,gameFruits[i].type));
+			}
+		}
+  }
 }
 
 ///
@@ -144,37 +152,11 @@ function draw() {
 			rhythmSeq.setRecordedSequence((rhythmSeq.getRecordedSequence()[currentKey] + 5), currentKey);
 		}
 	} else {
-		let explosions = []
-		for (var i = 0; i < gameFruits.length; i++) {
-			explosions.push(new Explosion(gameFruits[i].x,gameFruits[i].y,gameFruits[i].array));
-		}
 		for (var i = 0; i < explosions.length; i++) {
 			explosions[i].move()
 		}
 	}
-
-	// if(!completed){
-	// 	for (var i = 0; i < gameFruits.length; i++) {
-	// 		gameFruits[i].show()
-	// 	}
-	// }
-	// if(completed){
-	// 	let explosions = []
-	// 	for (var i = 0; i < gameFruits.length; i++) {
-	// 		explosions.push(new Explosion(gameFruits[i].x,gameFruits[i].y,gameFruits[i].array));
-	// 	}
-	// 	for (var i = 0; i < explosions.length; i++) {
-	// 		explosions[i].move()
-	// 	}
-	// }
 }
-
-// function keyPressed() {
-// 	currentKey++
-// 	if (currentKey >= 5) {
-// 		completed = true;
-// 	}
-// }
 
 class Fruit {
 	constructor(x,width,height,angle,type){
@@ -183,12 +165,6 @@ class Fruit {
 		this.height = height;
 		this.angle = angle;
 		this.type = type;
-
-		this.array = [];
-		for (var i = 0; i < 30; i++) {
-			this.array.push(Math.floor(Math.random()*359))
-		}
-		console.log(this.array)
 	}
 	show(){
 		this.angle += 2.5;
@@ -198,36 +174,19 @@ class Fruit {
 	}
 }
 
-function explode(x,y,array){
-	for (var i = 0; i < array.length; i++) {
-		let explodeX = x;
-		let explodeY = y;
-		fill('red')
-		ellipse(explodeX,explodeY,5,5)
-		explodeX+=cos(array[i]);
-		explodeY+=sin(array[i]);
-	}
-}
-
 class Explosion {
-	constructor(x,y,array){
+	constructor(x,y,direction,speed,type){
 		this.x = x;
 		this.y = y;
-		this.array = array;
-
-		for (var i = 0; i < this.array.length; i++) {
-			this.explodeX = this.x;
-			this.explodeY = this.y;
-		}
+		this.direction = direction;
+		this.speed = speed;
+		this.type = type;
 	}
 	move(){
-		for (var i = 0; i < this.array.length; i++) {
-			// this.explodeX = this.x;
-			// this.explodeY = this.y;
-			fill('red')
-			ellipse(this.explodeX,this.explodeY,2,2)
-			this.explodeX+=cos(this.array[i]) * 6;
-			this.explodeY+=sin(this.array[i]) * 6;
-		}
+		fill('red')
+		imageMode(CENTER)
+		image(this.type,this.x,this.y,10,10)
+		this.x+=cos(this.direction)*this.speed;
+		this.y+=sin(this.direction)*this.speed;
 	}
 }
