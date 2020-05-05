@@ -11,7 +11,7 @@ let gameFruits = [];
 let currentKey = 0;
 let sequence = [];
 let explosions = [];
-
+let levels = ['not a level'];
 let mySound = [];
 
 // document.addEventListener('keydown', function(){
@@ -20,6 +20,9 @@ let mySound = [];
 // document.addEventListener('keyup', function(){
 // 	bc = 100;
 // })
+for (var i = 1; i < 6; i++) {
+  levels.push(document.getElementById(i))
+}
 
 function preload(){
   apple = loadImage('/Rhythm-Game-/tyler/pictures/fruit/apple.png');
