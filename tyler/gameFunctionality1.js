@@ -1,4 +1,4 @@
-//THE reason why can't move explosions is because at 105-106, I redefine explodeX immediately
+//make gameendscreen already a size bc it isnt going to change
 
 let fr = 60;
 let ready = false;
@@ -13,6 +13,14 @@ let sequence = [];
 let explosions = [];
 let levels = ['not a level'];
 let mySound = [];
+let gameEndScreen = {
+  x: 0,
+  y: 0,
+  w: 0,
+  h: 0,
+  c: [45,45,45,100],
+  a: 90
+}
 
 // document.addEventListener('keydown', function(){
 // 	bc = 50;
@@ -36,6 +44,7 @@ function preload(){
 
 function setup() {
 	createCanvas(700,400)
+  gameEndScreen.w = width;
   sequence = [apple, apple, watermelon, plum];
 	for (var i = 0; i < sequence.length; i++) {
 		gameFruits.push(new Fruit((i * (width - 300) / (sequence.length - 1)) + 150 , 25, 25, 20 * i, sequence[i]))
@@ -110,6 +119,7 @@ function keyPressed() {
 		arr[currentGame].keyPressed();
 	}
   else {
+    completed = true;
 		for (var i = 0; i < gameFruits.length; i++) {
 			for (var j = 0; j < 30; j++) {
 				explosions.push(new Explosion(gameFruits[i].x,gameFruits[i].y,Math.floor(Math.random()*359),Math.random()*2,gameFruits[i].type));
@@ -144,10 +154,19 @@ function draw() {
 	textSize(50)
 	text('key is down', 0, 40)
 
+  fill(gameEndScreen.c[0],gameEndScreen.c[1],gameEndScreen.c[2],gameEndScreen.c[3])
+  rect(gameEndScreen.x,gameEndScreen.y,gameEndScreen.w,gameEndScreen.h)
+
+  if (completed) {
+    // moveEndScreen(new Date(Date.now()))
+    // setInterval(moveEndScreen(gameEndScreen.a),250)
+  }
+
 	if ((currentGame < arr.length) && (ready == true)) {
 		for (var i = 0; i < gameFruits.length; i++) {
 			gameFruits[i].show()
 		}
+    fill(100)
 		text(arr[currentGame].getSequence(),20,50);
 		let rhythmSeq = arr[currentGame]
 		let currentKey = rhythmSeq.getCurrentKey();
@@ -192,4 +211,24 @@ class Explosion {
 		this.x+=cos(this.direction)*this.speed;
 		this.y+=sin(this.direction)*this.speed;
 	}
+}
+
+function moveEndScreen() {
+  // var startTime = time;
+  // var endTime = new Date();
+  // console.log(startTime)
+
+  // for (var i = 90; i < 270; i++) {
+
+  if (gameEndScreen.a <= 270) {
+    gameEndScreen.h = map(sin(i),-1,1,0,height)
+  }
+  else {
+    gameEndScreen.a = 90;
+    gameEndScreen.h = 0
+  }
+
+  gameEndScreen.a++
+  console.log(gameEndScreen.a)
+  // }
 }
