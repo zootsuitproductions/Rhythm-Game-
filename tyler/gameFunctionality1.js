@@ -15,11 +15,12 @@ let levels = ['not a level'];
 let mySound = [];
 let gameEndScreen = {
   x: 0,
-  y: 0,
-  w: 0,
-  h: 0,
+  y: -400,
+  w: 700,
+  h: 400,
   c: [45,45,45,100],
-  a: 90
+  a: 90,
+  text: "game over"
 }
 
 // document.addEventListener('keydown', function(){
@@ -44,7 +45,7 @@ function preload(){
 
 function setup() {
 	createCanvas(700,400)
-  gameEndScreen.w = width;
+  // gameEndScreen.w = width;
   sequence = [apple, apple, watermelon, plum];
 	for (var i = 0; i < sequence.length; i++) {
 		gameFruits.push(new Fruit((i * (width - 300) / (sequence.length - 1)) + 150 , 25, 25, 20 * i, sequence[i]))
@@ -156,9 +157,10 @@ function draw() {
 
   fill(gameEndScreen.c[0],gameEndScreen.c[1],gameEndScreen.c[2],gameEndScreen.c[3])
   rect(gameEndScreen.x,gameEndScreen.y,gameEndScreen.w,gameEndScreen.h)
+  text(gameEndScreen.text,(gameEndScreen.x + gameEndScreen.w) / 2, (gameEndScreen.y + gameEndScreen.h) / 2)
 
-  if (completed) {
-    // moveEndScreen(new Date(Date.now()))
+  if (completed && gameEndScreen.y < 0) {
+    moveEndScreen()
     // setInterval(moveEndScreen(gameEndScreen.a),250)
   }
 
@@ -220,15 +222,17 @@ function moveEndScreen() {
 
   // for (var i = 90; i < 270; i++) {
 
-  if (gameEndScreen.a <= 270) {
-    gameEndScreen.h = map(sin(i),-1,1,0,height)
-  }
-  else {
-    gameEndScreen.a = 90;
-    gameEndScreen.h = 0
-  }
+  // if (gameEndScreen.a <= 270) {
+  //   gameEndScreen.h = map(sin(i),-1,1,0,height)
+  // }
+  // else {
+  //   gameEndScreen.a = 90;
+  //   gameEndScreen.h = 0
+  // }
 
   gameEndScreen.a++
+  gameEndScreen.y+=3
+
   console.log(gameEndScreen.a)
   // }
 }
