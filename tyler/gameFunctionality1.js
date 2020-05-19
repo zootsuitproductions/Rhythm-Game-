@@ -13,6 +13,7 @@ let sequence = [];
 let explosions = [];
 let levels = ['not a level'];
 let mySound = [];
+let clicks = 0;
 let gameEndScreen = {
   x: 0,
   y: -400,
@@ -47,10 +48,10 @@ function preload(){
 function setup() {
 	createCanvas(700,400)
   // gameEndScreen.w = width;
-  sequence = [apple, apple, watermelon, plum];
-	for (var i = 0; i < sequence.length; i++) {
-		gameFruits.push(new Fruit((i * (width - 300) / (sequence.length - 1)) + 150 , 25, 25, 20 * i, sequence[i]))
-	}
+  // sequence = [apple, apple, watermelon, plum];
+	// for (var i = 0; i < sequence.length; i++) {
+	// 	gameFruits.push(new Fruit((i * (width - 300) / (sequence.length - 1)) + 150 , 25, 25, 20 * i, sequence[i]))
+	// }
 	angleMode(DEGREES)
 	print(gameFruits);
 }
@@ -116,7 +117,8 @@ let currentGame = 0;
 
 function keyPressed() {
 	ready = true;
-	if (currentGame < arr.length) {
+  clicks++
+	if (currentGame < arr.length && gameFruits.length != 0) {
 		mySound[5].play();
 		arr[currentGame].keyPressed();
 	}
@@ -150,14 +152,23 @@ function keyPressed() {
 // }
 
 function draw() {
+
+  console.log(sequence)
+
 	background(bc)
 	noStroke()
 	fill(100)
 	textSize(50)
 	text('key is down', 0, 40)
 
+  if (clicks == 0) {
+    fill(30)
+    text('click a level at the top \nthen press any key to begin', (width/2) - 275, height/2)
+  }
+
   fill(gameEndScreen.c[0],gameEndScreen.c[1],gameEndScreen.c[2],gameEndScreen.c[3])
   rect(gameEndScreen.x,gameEndScreen.y,gameEndScreen.w,gameEndScreen.h)
+  fill(30)
   text(gameEndScreen.text,gameEndScreen.x + (gameEndScreen.w / 2), gameEndScreen.y + (gameEndScreen.h / 2))
 
   if (completed && gameEndScreen.y < 0) {
@@ -237,6 +248,11 @@ function moveEndScreen() {
   gameEndScreen.a++
   gameEndScreen.y+=(3 * gameEndScreen.speed)
 
-  console.log(gameEndScreen.a)
   // }
 }
+
+function level2() {
+  sequence = [apple, apple, watermelon, plum];
+	for (var i = 0; i < sequence.length; i++) {
+		gameFruits.push(new Fruit((i * (width - 300) / (sequence.length - 1)) + 150 , 25, 25, 20 * i, sequence[i]))
+	}}
