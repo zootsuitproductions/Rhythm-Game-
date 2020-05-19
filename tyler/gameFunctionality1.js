@@ -20,7 +20,8 @@ let gameEndScreen = {
   h: 400,
   c: [45,45,45,100],
   a: 90,
-  text: "game over"
+  text: "game over",
+  speed: 1
 }
 
 // document.addEventListener('keydown', function(){
@@ -157,7 +158,7 @@ function draw() {
 
   fill(gameEndScreen.c[0],gameEndScreen.c[1],gameEndScreen.c[2],gameEndScreen.c[3])
   rect(gameEndScreen.x,gameEndScreen.y,gameEndScreen.w,gameEndScreen.h)
-  text(gameEndScreen.text,(gameEndScreen.x + gameEndScreen.w) / 2, (gameEndScreen.y + gameEndScreen.h) / 2)
+  text(gameEndScreen.text,gameEndScreen.x + (gameEndScreen.w / 2), gameEndScreen.y + (gameEndScreen.h / 2))
 
   if (completed && gameEndScreen.y < 0) {
     moveEndScreen()
@@ -229,9 +230,12 @@ function moveEndScreen() {
   //   gameEndScreen.a = 90;
   //   gameEndScreen.h = 0
   // }
+  if (gameEndScreen.y < height && gameEndScreen.y > height - 50) {
+    gameEndScreen.speed = 0.9
+  }
 
   gameEndScreen.a++
-  gameEndScreen.y+=3
+  gameEndScreen.y+=(3 * gameEndScreen.speed)
 
   console.log(gameEndScreen.a)
   // }
