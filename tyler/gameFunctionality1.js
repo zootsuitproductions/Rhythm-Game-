@@ -14,6 +14,7 @@ let explosions = [];
 let levels = ['not a level'];
 let mySound = [];
 let clicks = 0;
+let score = 'score'
 let gameEndScreen = {
   x: 0,
   y: -400,
@@ -21,7 +22,7 @@ let gameEndScreen = {
   h: 400,
   c: [45,45,45,100],
   a: 90,
-  text: "game over",
+  text: "your score was " + score + "\ngame over",
   speed: 1
 }
 
@@ -169,7 +170,7 @@ function draw() {
   fill(gameEndScreen.c[0],gameEndScreen.c[1],gameEndScreen.c[2],gameEndScreen.c[3])
   rect(gameEndScreen.x,gameEndScreen.y,gameEndScreen.w,gameEndScreen.h)
   fill(30)
-  text(gameEndScreen.text,gameEndScreen.x + (gameEndScreen.w / 2), gameEndScreen.y + (gameEndScreen.h / 2))
+  text(gameEndScreen.text,gameEndScreen.x + 0, gameEndScreen.y + (gameEndScreen.h / 2))
 
   if (completed && gameEndScreen.y < 0) {
     moveEndScreen()
