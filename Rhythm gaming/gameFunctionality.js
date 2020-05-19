@@ -3,15 +3,15 @@ let mySound = [];
 let images;
 function preload() {
 	for (i = 1; i <= 7; i++) {
-  		mySound.push(loadSound("sounds/Cymatics - WRLD Percussion " + String(i) + ".wav"));
+  		mySound.push(loadSound("/Rhythm-Game-/Rhythm%20gaming/sounds/Cymatics - WRLD Percussion " + String(i) + ".wav"));
 	}
 
 	images = {
-		1: loadImage('images/1.png'),
-		0.5: loadImage('images/0.5.png'),
-		0.25: loadImage('images/0.25.png'),
-		0.125: loadImage('images/0.125.png'),
-		0.375: loadImage('images/0.375.png')
+		1: loadImage('/Rhythm-Game-/Rhythm%20gaming/images/1.png'),
+		0.5: loadImage('/Rhythm-Game-/Rhythm%20gaming/images/0.5.png'),
+		0.25: loadImage('/Rhythm-Game-/Rhythm%20gaming/images/0.25.png'),
+		0.125: loadImage('/Rhythm-Game-/Rhythm%20gaming/images/0.125.png'),
+		0.375: loadImage('/Rhythm-Game-/Rhythm%20gaming/images/0.375.png')
 	};
 }
 
