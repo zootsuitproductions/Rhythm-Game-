@@ -164,7 +164,7 @@ function draw() {
 
   if (clicks == 0) {
     fill(30)
-    text('click a level at the top \nthen press any key to begin', (width/2) - 275, height/2)
+    text('click a level at the top \nthen click the canvas \nand press any key to begin', (width/2) - 275, height/2)
   }
 
   fill(gameEndScreen.c[0],gameEndScreen.c[1],gameEndScreen.c[2],gameEndScreen.c[3])
@@ -252,8 +252,14 @@ function moveEndScreen() {
   // }
 }
 
-function level2() {
-  sequence = [apple, apple, watermelon, plum];
+function level(s1,s2,s3,s4) {
+
+  // if (sequence.length != 0) {
+  //   sequence.splice(0,sequence.length)
+  // }
+
+  sequence = [s1, s2, s3, s4];
 	for (var i = 0; i < sequence.length; i++) {
 		gameFruits.push(new Fruit((i * (width - 300) / (sequence.length - 1)) + 150 , 25, 25, 20 * i, sequence[i]))
-	}}
+	}
+}
