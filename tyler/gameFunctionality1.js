@@ -1,5 +1,3 @@
-//make gameendscreen already a size bc it isnt going to change
-
 let fr = 60;
 let ready = false;
 let bc = 100;
@@ -14,7 +12,7 @@ let explosions = [];
 let levels = ['not a level'];
 let mySound = [];
 let clicks = 0;
-let score = 'score'
+let score;
 let gameEndScreen = {
   x: 0,
   y: -400,
@@ -22,7 +20,7 @@ let gameEndScreen = {
   h: 400,
   c: [45,45,45,100],
   a: 90,
-  text: "your score was " + score + "\ngame over",
+  text: "your score was " + score + ".\ngame over",
   speed: 1
 }
 
@@ -107,8 +105,9 @@ class RhythmSequence {
 			}
 		}
 		currentGame ++;
-		ready = false;
+		// ready = false;
 		return correct;
+    score = correct
 	}
 
 }
@@ -157,6 +156,10 @@ function draw() {
   console.log(sequence)
 
 	background(bc)
+  //
+  // fill('red')
+  // text(ready,width/2,height/2)
+
 	noStroke()
 	fill(100)
 	textSize(50)
@@ -174,6 +177,7 @@ function draw() {
 
   if (completed && gameEndScreen.y < 0) {
     moveEndScreen()
+    // score = arr[currentGame].checkCorrectness()
     // setInterval(moveEndScreen(gameEndScreen.a),250)
   }
 
@@ -242,12 +246,17 @@ function moveEndScreen() {
   //   gameEndScreen.a = 90;
   //   gameEndScreen.h = 0
   // }
-  if (gameEndScreen.y < height && gameEndScreen.y > height - 50) {
-    gameEndScreen.speed = 0.9
+
+  // if (gameEndScreen.y < height && gameEndScreen.y > height - 50) {
+  //   gameEndScreen.speed = 0.9
+  // }
+
+  if(gameEndScreen.speed > 0.05){
+    gameEndScreen.speed -= 0.01
   }
 
   gameEndScreen.a++
-  gameEndScreen.y+=(3 * gameEndScreen.speed)
+  gameEndScreen.y+=(8 * gameEndScreen.speed)
 
   // }
 }
