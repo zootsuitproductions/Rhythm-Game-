@@ -23,6 +23,13 @@ let gameEndScreen = {
   text: "your score was " + score + ".\ngame over",
   speed: 1
 }
+let bcc = 100;
+let progressBar = [
+  {x:0, fill:90},
+  {x:0, fill:90},
+  {x:0, fill:90},
+  {x:0, fill:90}
+]
 
 // document.addEventListener('keydown', function(){
 // 	bc = 50;
@@ -51,11 +58,9 @@ function setup() {
 	// for (var i = 0; i < sequence.length; i++) {
 	// 	gameFruits.push(new Fruit((i * (width - 300) / (sequence.length - 1)) + 150 , 25, 25, 20 * i, sequence[i]))
 	// }
+
 	angleMode(DEGREES)
-	print(gameFruits);
 }
-
-
 
 // danny code
 
@@ -118,6 +123,20 @@ let currentGame = 0;
 function keyPressed() {
 	ready = true;
   clicks++
+
+  if(clicks >= 3) {
+    progressBar[0].fill = 'blue';
+  }
+  if(clicks >= 5) {
+    progressBar[1].fill = 'blue';
+  }
+  if(clicks >= 7){
+    progressBar[2].fill = 'blue';
+  }
+  if(clicks >= 9){
+    progressBar[3].fill = 'blue';
+  }
+
 	if (currentGame < arr.length && gameFruits.length != 0) {
 		mySound[5].play();
 		arr[currentGame].keyPressed();
@@ -132,32 +151,12 @@ function keyPressed() {
   }
 }
 
-///
-
-
-
-
-
-
-// function draw() {
-// 	if ((currentGame < arr.length) && (ready == true)) {
-// 		background(200);
-// 		text(arr[currentGame].getSequence(),20,50);
-// 		let rhythmSeq = arr[currentGame]
-// 		let currentKey = rhythmSeq.getCurrentKey();
-// 		if ((currentKey > -1) && (currentKey < rhythmSeq.getSequence().length)) {
-// 			rhythmSeq.setRecordedSequence((rhythmSeq.getRecordedSequence()[currentKey] + 5), currentKey);
-// 		}
-// 	}
-// }
-
 function draw() {
 
-  console.log(sequence)
+  console.log(progressBar[0].x)
 
 	background(bc)
-  //
-  // fill('red')
+
   // text(ready,width/2,height/2)
 
 	noStroke()
@@ -182,11 +181,35 @@ function draw() {
   }
 
 	if ((currentGame < arr.length) && (ready == true)) {
+
+    for (var i = 0; i < progressBar.length; i++) {
+      fill(progressBar[i].fill)
+      stroke('blue')
+      ellipse(progressBar[i].x, height/10, 10, 10)
+      noStroke()
+    }
+
+    if(clicks >= 4){
+      stroke('blue')
+      line(progressBar[0].x+5,height/10,progressBar[1].x-5,height/10)
+    }
+
+    if(clicks >= 6){
+      stroke('blue')
+      line(progressBar[1].x+5,height/10,progressBar[2].x-5,height/10)
+    }
+
+    if(clicks >= 8){
+      stroke('blue')
+      line(progressBar[2].x+5,height/10,progressBar[3].x-5,height/10)
+    }
+
 		for (var i = 0; i < gameFruits.length; i++) {
 			gameFruits[i].show()
 		}
-    fill(100)
-		text(arr[currentGame].getSequence(),20,50);
+    // fill(100)
+		// text(arr[currentGame].getSequence(),20,50);
+
 		let rhythmSeq = arr[currentGame]
 		let currentKey = rhythmSeq.getCurrentKey();
 		if ((currentKey > -1) && (currentKey < rhythmSeq.getSequence().length)) {
@@ -273,4 +296,24 @@ function level(s1,s2,s3,s4) {
 	for (var i = 0; i < sequence.length; i++) {
 		gameFruits.push(new Fruit((i * (width - 300) / (sequence.length - 1)) + 150 , 25, 25, 20 * i, sequence[i]))
 	}
+
+  for (var i = 0; i < gameFruits.length; i++) {
+    progressBar[i].x = gameFruits[i].x
+  }
 }
+
+// function drawProgress(c) {
+//   for (var i = 0; i < progressBar.length; i++) {
+//
+//     if (i != 0 && progressBar[i-1].fill) {
+//
+//     }
+//
+//     fill(bc)
+//     stroke('blue')
+//     strokeWeight(1.3)
+//     ellipse(progressBar[i].x, height/10, 10, 10)
+//
+//     noStroke()
+//   }
+// }
